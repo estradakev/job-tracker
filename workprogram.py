@@ -1,6 +1,14 @@
 import tkinter as tk
 from tkinter import ttk
 import csv
+import os
+
+#check if there is a data.csv file
+if not os.path.isfile('data.csv'):
+    #create a new data.csv file
+    with open('data.csv', 'w', newline='') as file:
+        writer = csv.writer(file)
+        writer.writerow(["company name", "location", "date", "callback"])
 
 # Window where the data will be displayed
 
@@ -143,10 +151,13 @@ window = tk.Tk()
 
 # Creates the table
 table = ttk.Treeview(window)
+
+table.tag_configure("light", background="lightgray")
+table.tag_configure("dark", background="lightblue")
+
 table.pack()
 table['columns'] = ('Name', 'Location', 'Date', 'Callback')
 # Add column headings
-table.heading('#0', text='ID')
 table.heading('Name', text='Name')
 table.heading('Location', text='Location')
 table.heading('Date', text='Date')
